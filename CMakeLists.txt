@@ -12,9 +12,16 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(SOURCES src/main.cpp)
+set(GUI
+    gui/main_window.cpp
+    gui/main_window.hpp
+    gui/main_window.ui
+)
+set(SRC
+    src/main.cpp
+)
 
 ########################
 # executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${GUI} ${SRC})
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
