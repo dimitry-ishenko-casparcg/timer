@@ -12,12 +12,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(GUI_LABEL       gui/label.cpp gui/label.hpp)
 set(GUI_MAIN_WINDOW gui/main_window.cpp gui/main_window.hpp gui/main_window.ui)
 set(SOURCES         src/main.cpp)
 
 ########################
 # executable
 add_executable(${PROJECT_NAME}
+    ${GUI_LABEL}
     ${GUI_MAIN_WINDOW}
     ${SOURCES}
 )
