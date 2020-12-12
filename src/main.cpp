@@ -8,6 +8,7 @@
 #include "gui/main_window.hpp"
 
 #include <QApplication>
+#include <QFontDatabase>
 
 #include <exception>
 #include <iostream>
@@ -20,10 +21,12 @@ int main(int argc, char* argv[])
     {
         QApplication app(argc, argv);
 
+        // process options
+
+        QFontDatabase::addApplicationFont(":/seven.otf");
+
         gui::main_window win;
         win.show();
-
-        // process options
 
         exit_code = app.exec();
     }
