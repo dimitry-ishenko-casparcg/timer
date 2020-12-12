@@ -30,9 +30,10 @@ std::shared_ptr<clock> clock::instance()
 ////////////////////////////////////////////////////////////////////////////////
 void clock::update_time()
 {
-    auto secs = duration_cast<seconds>(system_clock::now().time_since_epoch());
-    auto time = time_point(secs);
+    auto time = system_clock::now();
+    auto secs = duration_cast<seconds>(time.time_since_epoch());
 
+    time = time_point(secs) + drift_;
     if(time != time_)
     {
         time_ = time;
