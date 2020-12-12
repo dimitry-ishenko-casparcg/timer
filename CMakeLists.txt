@@ -15,8 +15,10 @@ set(CMAKE_AUTOUIC ON)
 set(GUI_LABEL       gui/label.cpp gui/label.hpp)
 set(GUI_MAIN_WINDOW gui/main_window.cpp gui/main_window.hpp gui/main_window.ui)
 set(GUI_TIME_WIDGET gui/time_widget.cpp gui/time_widget.hpp gui/time_widget.ui)
+set(MAIN            src/main.cpp)
 set(RESOURCES       res/resources.qrc)
-set(SOURCES         src/main.cpp)
+set(SRC_CLOCK       src/clock.cpp src/clock.hpp)
+set(SRC_TIME        src/time.hpp)
 
 ########################
 # executable
@@ -24,7 +26,9 @@ add_executable(${PROJECT_NAME}
     ${GUI_LABEL}
     ${GUI_MAIN_WINDOW}
     ${GUI_TIME_WIDGET}
+    ${MAIN}
     ${RESOURCES}
-    ${SOURCES}
+    ${SRC_CLOCK}
+    ${SRC_TIME}
 )
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
