@@ -15,13 +15,19 @@
 namespace gui
 {
 
+enum mode
+{
+    windowed,
+    full_screen,
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 class main_window : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit main_window(QWidget* parent = nullptr);
+    explicit main_window(gui::mode = windowed, QWidget* parent = nullptr);
 
 private:
     Ui::main_window ui_;
