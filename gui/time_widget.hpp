@@ -9,10 +9,10 @@
 #define GUI_TIME_WIDGET_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "src/time.hpp"
 #include "ui_time_widget.h"
 
 #include <QColor>
-#include <QTime>
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace gui
@@ -34,7 +34,7 @@ public:
     void font_size(double s) { fsize_ = s; update_sheet(); }
     void font_color(QColor c) { fcolor_ = std::move(c); update_sheet(); }
 
-    void time(const QTime&);
+    void time(src::time_point);
 
 signals:
     void hours_clicked_up();

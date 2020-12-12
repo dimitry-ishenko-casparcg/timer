@@ -6,6 +6,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include "time_widget.hpp"
+#include <ctime>
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace gui
@@ -35,11 +36,14 @@ time_widget::time_widget(QWidget* parent) : QWidget(parent)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void time_widget::time(const QTime& t)
+void time_widget::time(src::time_point tp)
 {
-    ui_.hours  ->setText(to_text(t.hour  ()));
-    ui_.minutes->setText(to_text(t.minute()));
-    ui_.seconds->setText(to_text(t.second()));
+    auto time = src::system_clock::to_time_t(tp);
+    auto tm = std::localtime(&time);
+
+    ui_.hours  ->setText(to_text(tm->tm_hour));
+    ui_.minutes->setText(to_text(tm->tm_min ));
+    ui_.seconds->setText(to_text(tm->tm_sec ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
