@@ -13,14 +13,6 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-namespace
-{
-
-auto to_text(int n) { return QString::number(n).rightJustified(2, '0'); }
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
 time_widget::time_widget(QWidget* parent) : QWidget(parent)
 {
     ui_.setupUi(this);
@@ -38,6 +30,8 @@ time_widget::time_widget(QWidget* parent) : QWidget(parent)
 ////////////////////////////////////////////////////////////////////////////////
 void time_widget::time(src::time_point tp)
 {
+    auto to_text = [](int n) { return QString::number(n).rightJustified(2, '0'); };
+
     auto time = src::system_clock::to_time_t(tp);
     auto tm = std::localtime(&time);
 
