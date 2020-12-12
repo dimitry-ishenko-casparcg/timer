@@ -14,6 +14,7 @@ set(CMAKE_AUTOUIC ON)
 
 set(GUI_LABEL       gui/label.cpp gui/label.hpp)
 set(GUI_MAIN_WINDOW gui/main_window.cpp gui/main_window.hpp gui/main_window.ui)
+set(GUI_TIME_WIDGET gui/time_widget.cpp gui/time_widget.hpp gui/time_widget.ui)
 set(RESOURCES       res/resources.qrc)
 set(SOURCES         src/main.cpp)
 
@@ -22,6 +23,7 @@ set(SOURCES         src/main.cpp)
 add_executable(${PROJECT_NAME}
     ${GUI_LABEL}
     ${GUI_MAIN_WINDOW}
+    ${GUI_TIME_WIDGET}
     ${RESOURCES}
     ${SOURCES}
 )
