@@ -35,6 +35,8 @@ void label::mouseReleaseEvent(QMouseEvent* ev)
 {
     if(timer_.isActive())
     {
+        timer_.stop();
+
         if(ev->pos().y() < height() / 2) emit clicked_up();
         else emit clicked_down();
     }
