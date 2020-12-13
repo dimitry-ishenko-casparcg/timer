@@ -33,12 +33,8 @@ void clock::update_time()
     auto time = system_clock::now();
     auto secs = duration_cast<seconds>(time.time_since_epoch());
 
-    time = time_point(secs) + delay_;
-    if(time != time_)
-    {
-        time_ = time;
-        emit time_changed(time_);
-    }
+    time_ = time_point(secs) + delay_;
+    emit time_changed(time_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
