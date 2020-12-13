@@ -30,6 +30,8 @@ class clock : public QObject
 public:
     explicit clock(QObject* parent = nullptr);
 
+    auto time() const { return time_; }
+
     void add_delay(seconds s) { delay_ += s; }
     void reset_delay() { delay_ = 0s; }
 
