@@ -19,12 +19,15 @@ time_widget::time_widget(QWidget* parent) : QWidget(parent)
 
     connect(ui_.hours, &label::clicked_up, this, &time_widget::hours_clicked_up);
     connect(ui_.hours, &label::clicked_down, this, &time_widget::hours_clicked_down);
+    connect(ui_.hours, &label::long_pressed, this, &time_widget::long_pressed);
 
     connect(ui_.minutes, &label::clicked_up, this, &time_widget::minutes_clicked_up);
     connect(ui_.minutes, &label::clicked_down, this, &time_widget::minutes_clicked_down);
+    connect(ui_.minutes, &label::long_pressed, this, &time_widget::long_pressed);
 
     connect(ui_.seconds, &label::clicked_up, this, &time_widget::seconds_clicked_up);
     connect(ui_.seconds, &label::clicked_down, this, &time_widget::seconds_clicked_down);
+    connect(ui_.seconds, &label::long_pressed, this, &time_widget::long_pressed);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

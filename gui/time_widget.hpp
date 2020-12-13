@@ -46,6 +46,8 @@ signals:
     void seconds_clicked_up();
     void seconds_clicked_down();
 
+    void long_pressed();
+
 private:
     Ui::time_widget ui_;
 
