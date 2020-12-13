@@ -10,6 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include <QLabel>
+#include <QTimer>
 #include <QWidget>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,21 +18,27 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// A label with clicked_up and clicked_down signals.
+/// A label with clicked_up, clicked_down and long_pressed signals.
 ///
 class label : public QLabel
 {
     Q_OBJECT
 
 public:
-    explicit label(QWidget* parent = nullptr) : QLabel(parent) { }
+    explicit label(QWidget* parent = nullptr);
 
 signals:
     void clicked_up();
     void clicked_down();
 
+    void long_pressed();
+
 protected:
+    virtual void mousePressEvent(QMouseEvent*) override;
     virtual void mouseReleaseEvent(QMouseEvent*) override;
+
+private:
+    QTimer timer_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

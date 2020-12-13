@@ -8,15 +8,38 @@
 #include "label.hpp"
 #include <QMouseEvent>
 
+using namespace std::chrono_literals;
+
 ////////////////////////////////////////////////////////////////////////////////
 namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
+label::label(QWidget* parent) : QLabel(parent)
+{
+    timer_.setSingleShot(true);
+    timer_.setInterval(1500ms);
+
+    connect(&timer_, &QTimer::timeout, this, &label::long_pressed);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void label::mousePressEvent(QMouseEvent* ev)
+{
+    timer_.start();
+    QLabel::mousePressEvent(ev);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 void label::mouseReleaseEvent(QMouseEvent* ev)
 {
-    if(ev->pos().y() < height() / 2) emit clicked_up();
-    else emit clicked_down();
+    if(timer_.isActive())
+    {
+        if(ev->pos().y() < height() / 2) emit clicked_up();
+        else emit clicked_down();
+    }
+
+    QLabel::mouseReleaseEvent(ev);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
