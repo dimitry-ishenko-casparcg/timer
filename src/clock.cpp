@@ -23,7 +23,7 @@ clock::clock(QObject* parent) : QObject(parent)
 ////////////////////////////////////////////////////////////////////////////////
 std::shared_ptr<clock> clock::instance()
 {
-    auto clock_ = std::make_shared<clock>();
+    static auto clock_ = std::make_shared<clock>();
     return clock_;
 }
 
