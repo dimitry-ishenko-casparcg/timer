@@ -6,15 +6,89 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Timer</string>
   </property>
-  <layout class="QVBoxLayout" name="layout"/>
+  <property name="styleSheet">
+   <string notr="true">* { 
+	background-color: black;
+}
+#clock * {
+	font: 160pt 'Seven';
+}
+#event_label, #video_label {
+	font: 20pt;
+	color: white;
+}
+#event *, #video * {
+	font: 140pt 'Seven';
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <widget class="gui::clock_widget" name="clock" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="event_label">
+     <property name="text">
+      <string>EVENT TIME</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="event" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="video_label">
+     <property name="text">
+      <string>VIDEO TIME</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="video" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>gui::clock_widget</class>
+   <extends>QWidget</extends>
+   <header>gui/clock_widget.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
