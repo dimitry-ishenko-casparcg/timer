@@ -17,8 +17,13 @@
 namespace gui
 {
 
+enum where
+{
+    top, middle, bottom
+};
+
 ////////////////////////////////////////////////////////////////////////////////
-/// A label with clicked_up, clicked_down and long_pressed signals.
+/// A label with clicked and long_pressed signals.
 ///
 class label : public QLabel
 {
@@ -28,8 +33,7 @@ public:
     explicit label(QWidget* parent = nullptr);
 
 signals:
-    void clicked_up();
-    void clicked_down();
+    void clicked(where);
 
     void long_pressed();
 

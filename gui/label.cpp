@@ -37,8 +37,9 @@ void label::mouseReleaseEvent(QMouseEvent* ev)
     {
         timer_.stop();
 
-        if(ev->pos().y() < height() / 2) emit clicked_up();
-        else emit clicked_down();
+             if(ev->pos().y() <= height() * 1/4) emit clicked(top);
+        else if(ev->pos().y() >= height() * 3/4) emit clicked(bottom);
+        else emit clicked(middle);
     }
 
     QLabel::mouseReleaseEvent(ev);

@@ -38,14 +38,9 @@ public:
     void time(src::time_point);
 
 signals:
-    void hours_clicked_up();
-    void hours_clicked_down();
-
-    void minutes_clicked_up();
-    void minutes_clicked_down();
-
-    void seconds_clicked_up();
-    void seconds_clicked_down();
+    void hours_clicked(where);
+    void minutes_clicked(where);
+    void seconds_clicked(where);
 
     void long_pressed();
 

@@ -24,14 +24,21 @@ clock_widget::clock_widget(QWidget* parent) : time_widget(parent)
     auto clock = src::clock::instance();
     connect(&*clock, &src::clock::time_changed, this, &clock_widget::time);
 
-    connect(this, &clock_widget::hours_clicked_up, [=](){ clock->add_delay(+1h); });
-    connect(this, &clock_widget::hours_clicked_down, [=](){ clock->add_delay(-1h); });
-
-    connect(this, &clock_widget::minutes_clicked_up, [=](){ clock->add_delay(+1min); });
-    connect(this, &clock_widget::minutes_clicked_down, [=](){ clock->add_delay(-1min); });
-
-    connect(this, &clock_widget::seconds_clicked_up, [=](){ clock->add_delay(+1s); });
-    connect(this, &clock_widget::seconds_clicked_down, [=](){ clock->add_delay(-1s); });
+    connect(this, &clock_widget::hours_clicked, [=](where w)
+    {
+             if(w == top) clock->add_delay(+1h);
+        else if(w == bottom) clock->add_delay(-1h);
+    });
+    connect(this, &clock_widget::minutes_clicked, [=](where w)
+    {
+             if(w == top) clock->add_delay(+1min);
+        else if(w == bottom) clock->add_delay(-1min);
+    });
+    connect(this, &clock_widget::seconds_clicked, [=](where w)
+    {
+             if(w == top) clock->add_delay(+1s);
+        else if(w == bottom) clock->add_delay(-1s);
+    });
 
     connect(this, &clock_widget::long_pressed, [=](){ clock->reset_delay(); });
 }
