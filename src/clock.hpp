@@ -30,9 +30,8 @@ class clock : public QObject
 public:
     explicit clock(QObject* parent = nullptr);
 
-    template<typename Rep, typename Period>
-    void drift(const duration<Rep, Period>& d) { drift_ = duration_cast<seconds>(d); }
-    auto drift() const { return drift_; }
+    void add_delay(seconds s) { delay_ += s; }
+    void reset_delay() { delay_ = 0s; }
 
     static std::shared_ptr<clock> instance();
 
@@ -44,7 +43,7 @@ private:
     void update_time();
 
     time_point time_;
-    seconds drift_ { 0 };
+    seconds delay_ = 0s;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
