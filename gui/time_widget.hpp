@@ -22,7 +22,7 @@ namespace gui
 ////////////////////////////////////////////////////////////////////////////////
 /// A widget that shows time.
 ///
-/// It forwards clicked_up and clicked_down signals from its children hours,
+/// It forwards clicked and long_pressed signals from its children hours,
 /// minutes and seconds.
 ///
 class time_widget : public QWidget
