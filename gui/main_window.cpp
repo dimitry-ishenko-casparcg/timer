@@ -25,6 +25,10 @@ main_window::main_window(int port, gui::mode mode, QWidget* parent) : QWidget(pa
         setWindowState(windowState() | Qt::WindowFullScreen);
         setGeometry(QApplication::desktop()->screenGeometry(this));
     }
+
+    connect(&server_, &osc::server::event_start, ui_.event, &event_widget::start);
+    connect(&server_, &osc::server::event_stop , ui_.event, &event_widget::stop );
+    connect(&server_, &osc::server::event_reset, ui_.event, &event_widget::reset);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
