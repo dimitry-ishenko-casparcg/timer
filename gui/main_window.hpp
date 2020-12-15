@@ -9,7 +9,9 @@
 #define GUI_MAIN_WINDOW_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "osc/server.hpp"
 #include "ui_main_window.h"
+
 #include <QWidget>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,10 +30,11 @@ class main_window : public QWidget
     Q_OBJECT
 
 public:
-    explicit main_window(gui::mode = windowed, QWidget* parent = nullptr);
+    explicit main_window(int port, gui::mode = windowed, QWidget* parent = nullptr);
 
 private:
     Ui::main_window ui_;
+    osc::server server_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

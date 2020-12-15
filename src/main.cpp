@@ -20,12 +20,14 @@ int main(int argc, char* argv[])
     try
     {
         QApplication app(argc, argv);
+        QFontDatabase::addApplicationFont(":/seven.otf");
+
+        int port = 7250;
+        gui::mode mode = gui::windowed;
 
         // process options
 
-        QFontDatabase::addApplicationFont(":/seven.otf");
-
-        gui::main_window win;
+        gui::main_window win(port, mode);
         win.show();
 
         exit_code = app.exec();
