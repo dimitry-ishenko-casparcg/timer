@@ -8,8 +8,6 @@
 #include "clock_widget.hpp"
 #include "src/clock.hpp"
 
-#include <QTimer>
-
 using namespace std::chrono_literals;
 
 ////////////////////////////////////////////////////////////////////////////////

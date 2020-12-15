@@ -9,6 +9,7 @@
 #define GUI_TIME_WIDGET_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "label.hpp" // where
 #include "src/time.hpp"
 #include "ui_time_widget.h"
 

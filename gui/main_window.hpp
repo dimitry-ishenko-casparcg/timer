@@ -32,7 +32,7 @@ class main_window : public QWidget
     Q_OBJECT
 
 public:
-    explicit main_window(int port, gui::mode = windowed, QWidget* parent = nullptr);
+    explicit main_window(int port, mode = windowed, QWidget* parent = nullptr);
 
 private:
     Ui::main_window ui_;
