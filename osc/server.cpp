@@ -61,9 +61,18 @@ void server::process(const element& e)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void server::process(const message&)
+void server::process(const message& m)
 {
-    // TODO
+    if(m.address() == "/event/state")
+    {
+        if(m.values().size() && m.values()[0].is_string())
+        {
+            auto state = m.values()[0].to_string();
+                 if(state == "start") emit event_start();
+            else if(state == "stop" ) emit event_stop ();
+            else if(state == "reset") emit event_reset();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

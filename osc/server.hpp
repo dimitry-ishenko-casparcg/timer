@@ -26,6 +26,11 @@ class server : public QObject
 public:
     explicit server(int port, QObject* parent = nullptr);
 
+signals:
+    void event_start();
+    void event_stop();
+    void event_reset();
+
 private:
     QUdpSocket socket_;
     void receive_data();
