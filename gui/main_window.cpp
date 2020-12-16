@@ -15,8 +15,8 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-main_window::main_window(int port, gui::mode mode, QWidget* parent) : QWidget(parent),
-    server_(port)
+main_window::main_window(int port, window_mode mode, QWidget* parent) :
+    QWidget(parent), server_(port)
 {
     ui_.setupUi(this);
 

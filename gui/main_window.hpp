@@ -19,7 +19,7 @@
 namespace gui
 {
 
-enum mode
+enum window_mode
 {
     windowed,
     full_screen,
@@ -33,7 +33,7 @@ class main_window : public QWidget
     Q_OBJECT
 
 public:
-    explicit main_window(int port, mode = windowed, QWidget* parent = nullptr);
+    explicit main_window(int port, window_mode = windowed, QWidget* parent = nullptr);
 
     void add_channel(int n) { server_.add_channel(n); }
     void add_channels(range nn) { server_.add_channels(nn); }

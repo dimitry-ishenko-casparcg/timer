@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
         QFontDatabase::addApplicationFont(":/seven.otf");
 
         int port = 7250;
-        gui::mode mode = gui::windowed;
+        gui::window_mode mode = gui::windowed;
 
         // process options
 
