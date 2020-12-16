@@ -10,7 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include "src/time.hpp"
-#include "time_widget.hpp"
+#include "ui_event_widget.h"
 
 #include <QWidget>
 
@@ -19,7 +19,7 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-class event_widget : public time_widget
+class event_widget : public QWidget
 {
     Q_OBJECT
 
@@ -33,6 +33,8 @@ public:
     bool started() const { return start_ != none; }
 
 private:
+    Ui::event_widget ui_;
+
     static constexpr auto none = src::time_point::min();
     src::time_point epoch_,  start_;
 

@@ -13,7 +13,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(GUI_CLOCK_WIDGET gui/clock_widget.cpp gui/clock_widget.hpp)
-set(GUI_EVENT_WIDGET gui/event_widget.cpp gui/event_widget.hpp)
+set(GUI_EVENT_WIDGET gui/event_widget.cpp gui/event_widget.hpp gui/event_widget.ui)
 set(GUI_LABEL        gui/label.cpp gui/label.hpp)
 set(GUI_MAIN_WINDOW  gui/main_window.cpp gui/main_window.hpp gui/main_window.ui)
 set(GUI_TIME_WIDGET  gui/time_widget.cpp gui/time_widget.hpp gui/time_widget.ui)

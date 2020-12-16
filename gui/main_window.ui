@@ -17,16 +17,26 @@
    <string notr="true">* { 
 	background-color: black;
 }
-#clock *, #video * {
+#clock * {
 	font: 160pt 'Seven';
 }
-#event_label, #video_label {
+
+#event #widget * {
+	font: 120pt 'Seven';
+}
+#event #label {
 	font: 20pt;
 	color: white;
 }
-#event * {
-	font: 120pt 'Seven';
-}</string>
+
+#video * {
+	font: 160pt 'Seven';
+}
+#video_label {
+	font: 20pt;
+	color: white;
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="layout">
    <item>
@@ -36,16 +46,6 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="event_label">
-     <property name="text">
-      <string>EVENT TIME</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

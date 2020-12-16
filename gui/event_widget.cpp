@@ -17,32 +17,33 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-event_widget::event_widget(QWidget* parent) : time_widget(parent)
+event_widget::event_widget(QWidget* parent) : QWidget(parent)
 {
+    ui_.setupUi(this);
     reset();
 
     auto clock = src::clock::instance();
     connect(&*clock, &src::clock::time_changed, this, &event_widget::update);
 
-    connect(this, &event_widget::hours_clicked, [=](where w) { click(w, 1h); } );
-    connect(this, &event_widget::minutes_clicked, [=](where w) { click(w, 1min); } );
-    connect(this, &event_widget::seconds_clicked, [=](where w) { click(w, 1s); } );
+    connect(ui_.widget, &time_widget::hours_clicked, [=](where w) { click(w, 1h); } );
+    connect(ui_.widget, &time_widget::minutes_clicked, [=](where w) { click(w, 1min); } );
+    connect(ui_.widget, &time_widget::seconds_clicked, [=](where w) { click(w, 1s); } );
 
-    connect(this, &event_widget::long_pressed, this, &event_widget::reset);
+    connect(ui_.widget, &time_widget::long_pressed, this, &event_widget::reset);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::start()
 {
     start_ = src::clock::instance()->time();
-    font_color(Qt::white);
+    ui_.widget->font_color(Qt::white);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::stop()
 {
     start_ = none;
-    font_color(Qt::gray);
+    ui_.widget->font_color(Qt::gray);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +53,7 @@ void event_widget::reset()
     epoch_ = src::system_clock::from_time_t(std::mktime(&tm));
 
     stop();
-    time(epoch_);
+    ui_.widget->time(epoch_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ void event_widget::click(where w, src::seconds s)
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::update(src::time_point tp)
 {
-    if(started()) time(epoch_ + (tp - start_));
+    if(started()) ui_.widget->time(epoch_ + (tp - start_));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
