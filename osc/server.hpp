@@ -9,6 +9,7 @@
 #define OSC_SERVER_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "src/range.hpp"
 #include "src/time.hpp"
 
 #include <QObject>
@@ -17,6 +18,10 @@
 
 #include <osc++.hpp>
 
+#include <map>
+#include <set>
+#include <tuple>
+
 ////////////////////////////////////////////////////////////////////////////////
 namespace osc
 {
@@ -24,8 +29,11 @@ namespace osc
 ////////////////////////////////////////////////////////////////////////////////
 /// OSC server.
 ///
-/// Receives OSC messages, filters out the ones we might care about and does
+/// Receives OSC messages, filters out the ones we care about and does
 /// basic pre-processing.
+///
+/// Specifically, the server keeps track of which is video is played on which
+/// channel and layer and only signals name and time for the latest video.
 ///
 class server : public QObject
 {
@@ -34,13 +42,23 @@ class server : public QObject
 public:
     explicit server(int port, QObject* parent = nullptr);
 
+    void add_channel(int n) { channels_.insert(n); }
+    void add_channels(range nn) { channels_.insert(nn.begin(), nn.end()); }
+
+    void remove_channel(int n) { channels_.erase(n); }
+
+    void add_layer(int n) { layers_.insert(n); }
+    void add_layers(range nn) { layers_.insert(nn.begin(), nn.end()); }
+
+    void remove_layer(int n) { layers_.erase(n); }
+
 signals:
     void event_start();
     void event_stop();
     void event_reset();
 
-    void video_name(int channel, int layer, const QString&);
-    void video_time(int channel, int layer, src::time_point, src::seconds);
+    void video_name(const QString&);
+    void video_time(src::time_point, src::seconds);
 
 private:
     QUdpSocket socket_;
@@ -48,6 +66,12 @@ private:
 
     void process(const osc::element&);
     void process(const osc::message&);
+
+    std::set<int> channels_, layers_; // monitored channels & layers
+    int channel_ = -1, layer_ = -1; // active channel & layer
+
+    using pair = std::tuple<int, int>;
+    std::map<pair, QString> videos_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

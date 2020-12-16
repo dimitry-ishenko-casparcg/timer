@@ -21,6 +21,35 @@ namespace osc
 {
 
 ////////////////////////////////////////////////////////////////////////////////
+namespace
+{
+
+auto to_name(const value& v)
+{
+    QString name(v.to_string().data());
+
+    auto p = name.lastIndexOf('/');
+    if(p >= 0) name.remove(0, p + 1);
+
+    p = name.lastIndexOf('.');
+    if(p >= 0) name.remove(p, name.size());
+
+    return name;
+}
+
+auto to_seconds(const value& v)
+{
+    return src::seconds( static_cast<int64>(v.to_float()) );
+}
+
+auto to_time_point(const value& v)
+{
+    return src::time_point() + to_seconds(v);
+}
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
 server::server(int port, QObject* parent) : QObject(parent)
 {
     socket_.bind(port);
@@ -69,12 +98,11 @@ void server::process(const message& m)
     static std::regex re("/channel/([0-9]+)/stage/layer/([0-9]+)/foreground/file/(time|name)");
     std::smatch match;
 
-    auto const& val = m.values();
     if(m.address() == "/event/state")
     {
-        if(val.size() == 1 && val[0].is_string())
+        if(m.values().are<osc::string>())
         {
-            auto state = val[0].to_string();
+            auto state = m.value(0).to_string();
                  if(state == "start") emit event_start();
             else if(state == "stop" ) emit event_stop ();
             else if(state == "reset") emit event_reset();
@@ -82,25 +110,51 @@ void server::process(const message& m)
     }
     else if(std::regex_match(m.address(), match, re))
     {
-        auto channel = std::stoi(match[1]);
-        auto layer = std::stoi(match[2]);
+        auto c = std::stoi(match[1]);
+        auto l = std::stoi(match[2]);
+        auto n = match[3];
 
-        if(match[3] == "name")
+        if(n == "name")
         {
-            if(val.size() == 1 && val[0].is_string())
+            if(m.values().are<osc::string>() && channels_.count(c) && layers_.count(l))
             {
-                QString name(val[0].to_string().data());
-                emit video_name(channel, layer, name);
+                if(auto name = to_name(m.values()[0]); name != videos_[pair(c, l)])
+                {
+                    // video name has changed, assume new video started playing
+                    // and make its channel & layer active
+                    channel_ = c;
+                    layer_ = l;
+
+                    videos_[pair(c, l)] = name;
+                    emit video_name(name);
+                }
             }
         }
-        else
+        else if(n == "time")
         {
-            if(val.size() == 2 && val[0].is_float() && val[1].is_float())
+            if(m.values().are<float, float>())
             {
-                auto time = src::time_point() + src::seconds( static_cast<int64>(val[0].to_float()) );
-                auto total = src::seconds( static_cast<int64>(val[1].to_float()) );
+                auto time = to_time_point(m.values()[0]);
+                auto total = to_seconds(m.values()[1]);
 
-                emit video_time(channel, layer, time, total);
+                if(c == channel_ && l == layer_)
+                {
+                    // active channel & layer
+                    emit video_time(time, total);
+                }
+                else if(auto name = videos_.find(pair(c, l)); name != videos_.end())
+                {
+                    if(time == src::time_point())
+                    {
+                        // time reset to 0, assume same video started playing newly
+                        // and make its channel & layer active
+                        channel_ = c;
+                        layer_ = l;
+
+                        emit video_name(name->second);
+                        emit video_time(time, total);
+                    }
+                }
             }
         }
     }
