@@ -11,7 +11,10 @@
 #include <QNetworkDatagram>
 
 #include <osc++.hpp>
+
+#include <regex>
 #include <stdexcept>
+#include <string> // std::stoi
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace osc
@@ -63,14 +66,42 @@ void server::process(const element& e)
 ////////////////////////////////////////////////////////////////////////////////
 void server::process(const message& m)
 {
+    static std::regex re("/channel/([0-9]+)/stage/layer/([0-9]+)/foreground/file/(time|name)");
+    std::smatch match;
+
+    auto const& val = m.values();
     if(m.address() == "/event/state")
     {
-        if(m.values().size() && m.values()[0].is_string())
+        if(val.size() == 1 && val[0].is_string())
         {
-            auto state = m.values()[0].to_string();
+            auto state = val[0].to_string();
                  if(state == "start") emit event_start();
             else if(state == "stop" ) emit event_stop ();
             else if(state == "reset") emit event_reset();
+        }
+    }
+    else if(std::regex_match(m.address(), match, re))
+    {
+        auto channel = std::stoi(match[1]);
+        auto layer = std::stoi(match[2]);
+
+        if(match[3] == "name")
+        {
+            if(val.size() == 1 && val[0].is_string())
+            {
+                QString name(val[0].to_string().data());
+                emit video_name(channel, layer, name);
+            }
+        }
+        else
+        {
+            if(val.size() == 2 && val[0].is_float() && val[1].is_float())
+            {
+                auto time = src::time_point() + src::seconds( static_cast<int64>(val[0].to_float()) );
+                auto total = src::seconds( static_cast<int64>(val[1].to_float()) );
+
+                emit video_time(channel, layer, time, total);
+            }
         }
     }
 }

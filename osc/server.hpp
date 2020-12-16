@@ -9,7 +9,10 @@
 #define OSC_SERVER_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "src/time.hpp"
+
 #include <QObject>
+#include <QString>
 #include <QUdpSocket>
 
 #include <osc++.hpp>
@@ -19,6 +22,11 @@ namespace osc
 {
 
 ////////////////////////////////////////////////////////////////////////////////
+/// OSC server.
+///
+/// Receives OSC messages, filters out the ones we might care about and does
+/// basic pre-processing.
+///
 class server : public QObject
 {
     Q_OBJECT
@@ -30,6 +38,9 @@ signals:
     void event_start();
     void event_stop();
     void event_reset();
+
+    void video_name(int channel, int layer, const QString&);
+    void video_time(int channel, int layer, src::time_point, src::seconds);
 
 private:
     QUdpSocket socket_;
