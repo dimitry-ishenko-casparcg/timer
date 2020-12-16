@@ -30,10 +30,10 @@ std::shared_ptr<clock> clock::instance()
 ////////////////////////////////////////////////////////////////////////////////
 void clock::update_time()
 {
-    auto time = system_clock::now();
-    auto secs = duration_cast<seconds>(time.time_since_epoch());
+    auto now = system_clock::now();
+    auto sec = duration_cast<seconds>(now.time_since_epoch());
 
-    time_ = time_point(secs) + delay_;
+    time_ = time_point(sec) + delay_;
     emit time_changed(time_);
 }
 
