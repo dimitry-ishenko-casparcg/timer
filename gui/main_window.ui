@@ -17,15 +17,15 @@
    <string notr="true">* { 
 	background-color: black;
 }
-#clock * {
+#clock *, #video * {
 	font: 160pt 'Seven';
 }
 #event_label, #video_label {
 	font: 20pt;
 	color: white;
 }
-#event *, #video * {
-	font: 140pt 'Seven';
+#event * {
+	font: 120pt 'Seven';
 }</string>
   </property>
   <layout class="QVBoxLayout" name="layout">
