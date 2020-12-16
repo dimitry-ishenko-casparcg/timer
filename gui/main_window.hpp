@@ -10,6 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include "osc/server.hpp"
+#include "src/range.hpp"
 #include "ui_main_window.h"
 
 #include <QWidget>
@@ -33,6 +34,14 @@ class main_window : public QWidget
 
 public:
     explicit main_window(int port, mode = windowed, QWidget* parent = nullptr);
+
+    void add_channel(int n) { server_.add_channel(n); }
+    void add_channels(range nn) { server_.add_channels(nn); }
+    void remove_channel(int n) { server_.remove_channel(n); }
+
+    void add_layer(int n) { server_.add_layer(n); }
+    void add_layers(range nn) { server_.add_layers(nn); }
+    void remove_layer(int n) { server_.remove_layer(n); }
 
 private:
     Ui::main_window ui_;
