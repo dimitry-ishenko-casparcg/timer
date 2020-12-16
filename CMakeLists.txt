@@ -21,6 +21,7 @@ set(MAIN             src/main.cpp)
 set(OSC_SERVER       osc/server.cpp osc/server.hpp)
 set(RESOURCES        res/resources.qrc)
 set(SRC_CLOCK        src/clock.cpp src/clock.hpp)
+set(SRC_RANGE        src/range.hpp)
 set(SRC_TIME         src/time.hpp)
 
 ########################
@@ -35,6 +36,7 @@ add_executable(${PROJECT_NAME}
     ${OSC_SERVER}
     ${RESOURCES}
     ${SRC_CLOCK}
+    ${SRC_RANGE}
     ${SRC_TIME}
 )
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Network Qt5::Widgets osc++)
