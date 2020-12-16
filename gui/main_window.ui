@@ -24,7 +24,7 @@
 #event #widget * {
 	font: 120pt 'Seven';
 }
-#event #label {
+#event #name {
 	font: 20pt;
 	color: white;
 }
@@ -32,7 +32,7 @@
 #video #widget * {
 	font: 160pt 'Seven';
 }
-#video #label {
+#video #name {
 	font: 20pt;
 	color: white;
 }
