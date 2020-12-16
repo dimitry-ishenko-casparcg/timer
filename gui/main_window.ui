@@ -70,7 +70,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="video" native="true">
+    <widget class="gui::video_widget" name="video" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -92,6 +92,12 @@
    <class>gui::event_widget</class>
    <extends>QWidget</extends>
    <header>gui/event_widget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>gui::video_widget</class>
+   <extends>QWidget</extends>
+   <header>gui/video_widget.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
