@@ -17,6 +17,7 @@ set(GUI_EVENT_WIDGET gui/event_widget.cpp gui/event_widget.hpp)
 set(GUI_LABEL        gui/label.cpp gui/label.hpp)
 set(GUI_MAIN_WINDOW  gui/main_window.cpp gui/main_window.hpp gui/main_window.ui)
 set(GUI_TIME_WIDGET  gui/time_widget.cpp gui/time_widget.hpp gui/time_widget.ui)
+set(GUI_VIDEO_WIDGET gui/video_widget.cpp gui/video_widget.hpp)
 set(MAIN             src/main.cpp)
 set(OSC_SERVER       osc/server.cpp osc/server.hpp)
 set(RESOURCES        res/resources.qrc)
@@ -32,6 +33,7 @@ add_executable(${PROJECT_NAME}
     ${GUI_LABEL}
     ${GUI_MAIN_WINDOW}
     ${GUI_TIME_WIDGET}
+    ${GUI_VIDEO_WIDGET}
     ${MAIN}
     ${OSC_SERVER}
     ${RESOURCES}
