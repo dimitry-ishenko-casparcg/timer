@@ -16,6 +16,8 @@
 #include <stdexcept>
 #include <string> // std::stoi
 
+using namespace std::chrono_literals;
+
 ////////////////////////////////////////////////////////////////////////////////
 namespace osc
 {
@@ -140,7 +142,7 @@ void server::process(const message& m)
                 if(c == channel_ && l == layer_)
                 {
                     // active channel & layer
-                    emit video_time(time, total);
+                    if(total > 0s) emit video_time(time, total);
                 }
                 else if(auto name = videos_.find(pair(c, l)); name != videos_.end())
                 {
@@ -152,7 +154,6 @@ void server::process(const message& m)
                         layer_ = l;
 
                         emit video_name(name->second);
-                        emit video_time(time, total);
                     }
                 }
             }
