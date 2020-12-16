@@ -34,7 +34,7 @@ auto to_name(const value& v)
     p = name.lastIndexOf('.');
     if(p >= 0) name.remove(p, name.size());
 
-    return name;
+    return name.toUpper();
 }
 
 auto to_seconds(const value& v)
