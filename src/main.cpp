@@ -81,7 +81,7 @@ auto to_int(const QCommandLineParser& parser, const QString& opt)
     auto n = v.toInt(&ok);
 
     if(!ok) throw std::invalid_argument(
-        ("Invalid '" + opt + "' value: " + v).toStdString()
+        ("Invalid option '" + opt + "' value: " + v).toStdString()
     );
     return n;
 }
@@ -94,7 +94,7 @@ auto to_double(const QCommandLineParser& parser, const QString& opt)
     auto n = v.toDouble(&ok);
 
     if(!ok) throw std::invalid_argument(
-        ("Invalid '" + opt + "' value: " + v).toStdString()
+        ("Invalid option '" + opt + "' value: " + v).toStdString()
     );
     return n;
 }
@@ -120,7 +120,7 @@ auto collect(const QCommandLineParser& parser, const QString& opt)
             }
 
             if(!ok) throw std::invalid_argument(
-                ("Invalid '" + opt + "' value: " + v).toStdString()
+                ("Invalid option '" + opt + "' value: " + v).toStdString()
             );
         }
 
