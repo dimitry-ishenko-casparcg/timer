@@ -33,6 +33,12 @@ video_widget::video_widget(QWidget* parent) : QWidget(parent)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void video_widget::font_size(double pt)
+{
+    ui_.widget->font_size(pt);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 void video_widget::name(const QString& name)
 {
     timer_.start();

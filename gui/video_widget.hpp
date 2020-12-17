@@ -35,6 +35,8 @@ class video_widget : public QWidget
 public:
     explicit video_widget(QWidget* parent = nullptr);
 
+    void font_size(double);
+
     auto mode() const { return mode_; }
     void mode(count_mode mode) { mode_ = mode; }
 
