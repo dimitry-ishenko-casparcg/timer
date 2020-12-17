@@ -33,7 +33,7 @@ class time_widget : public QWidget
 public:
     explicit time_widget(QWidget* parent = nullptr);
 
-    void font_size(double s) { fsize_ = s; update_sheet(); }
+    void font_size(double pt) { fsize_ = pt; update_sheet(); }
     void font_color(QColor c) { fcolor_ = std::move(c); update_sheet(); }
 
     void time(src::time_point);
