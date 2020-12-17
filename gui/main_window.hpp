@@ -43,6 +43,11 @@ public:
     void add_layers(range nn) { server_.add_layers(nn); }
     void remove_layer(int n) { server_.remove_layer(n); }
 
+    void name_size(double);
+    void clock_size(double);
+    void event_size(double);
+    void video_size(double);
+
 private:
     Ui::main_window ui_;
     osc::server server_;
