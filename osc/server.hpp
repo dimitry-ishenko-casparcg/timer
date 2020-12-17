@@ -20,7 +20,6 @@
 
 #include <map>
 #include <set>
-#include <tuple>
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace osc
@@ -42,10 +41,7 @@ class server : public QObject
 public:
     explicit server(int port, QObject* parent = nullptr);
 
-    void add_channel(int n) { channels_.insert(n); }
-    void add_channels(range nn) { channels_.insert(nn.begin(), nn.end()); }
-
-    void remove_channel(int n) { channels_.erase(n); }
+    void channel(int n) { channel_ = n; }
 
     void add_layer(int n) { layers_.insert(n); }
     void add_layers(range nn) { layers_.insert(nn.begin(), nn.end()); }
@@ -67,11 +63,12 @@ private:
     void process(const osc::element&);
     void process(const osc::message&);
 
-    std::set<int> channels_, layers_; // monitored channels & layers
-    int channel_ = -1, layer_ = -1; // active channel & layer
+    int channel_ = -1; // monitored channel
+    std::set<int> layers_; // monitored layers
 
-    using pair = std::tuple<int, int>;
-    std::map<pair, QString> videos_;
+    int layer_ = -1; // active layer
+
+    std::map<int, QString> videos_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

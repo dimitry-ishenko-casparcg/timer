@@ -7,9 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "server.hpp"
 
-#include <QDebug>
 #include <QNetworkDatagram>
-
 #include <osc++.hpp>
 
 #include <regex>
@@ -74,7 +72,6 @@ void server::receive_data()
         catch(std::invalid_argument&)
         {
             // discard invalid packets
-            // qDebug() << e.what();
         }
     }
 }
@@ -118,16 +115,15 @@ void server::process(const message& m)
 
         if(n == "path")
         {
-            if(m.values().are<osc::string>() && channels_.count(c) && layers_.count(l))
+            if(m.values().are<osc::string>() && c == channel_ && layers_.count(l))
             {
-                if(auto name = to_name(m.values()[0]); name != videos_[pair(c, l)])
+                if(auto name = to_name(m.values()[0]); name != videos_[l])
                 {
                     // video name has changed, assume new video started playing
-                    // and make its channel & layer active
-                    channel_ = c;
+                    // and make its layer active
                     layer_ = l;
 
-                    videos_[pair(c, l)] = name;
+                    videos_[l] = name;
                     emit video_name(name);
                 }
             }
@@ -144,13 +140,12 @@ void server::process(const message& m)
                     // active channel & layer
                     if(total > 0s) emit video_time(time, total);
                 }
-                else if(auto name = videos_.find(pair(c, l)); name != videos_.end())
+                else if(auto name = videos_.find(l); name != videos_.end())
                 {
                     if(time == src::time_point())
                     {
                         // time reset to 0, assume same video started playing newly
-                        // and make its channel & layer active
-                        channel_ = c;
+                        // and make its layer active
                         layer_ = l;
 
                         emit video_name(name->second);

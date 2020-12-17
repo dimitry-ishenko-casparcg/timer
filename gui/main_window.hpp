@@ -35,7 +35,7 @@ class main_window : public QWidget
 public:
     explicit main_window(int port, window_mode = windowed, QWidget* parent = nullptr);
 
-    void channel(int n) { server_.add_channel(n); }
+    void channel(int n) { server_.channel(n); }
 
     void add_layer(int n) { server_.add_layer(n); }
     void add_layers(range nn) { server_.add_layers(nn); }
