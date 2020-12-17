@@ -154,10 +154,10 @@ int main(int argc, char* argv[])
         for(auto n : add) win.add_layer(n);
         for(auto n : remove) win.remove_layer(n);
 
-        win. name_size(to_double(parser,  "name-size"));
-        win.clock_size(to_double(parser, "clock-size"));
-        win.event_size(to_double(parser, "event-size"));
-        win.video_size(to_double(parser, "video-size"));
+        win. name_font_size(to_double(parser,  "name-size"));
+        win.clock_font_size(to_double(parser, "clock-size"));
+        win.event_font_size(to_double(parser, "event-size"));
+        win.video_font_size(to_double(parser, "video-size"));
 
         exit_code = app.exec();
     }

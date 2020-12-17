@@ -36,26 +36,26 @@ main_window::main_window(int port, window_mode mode, QWidget* parent) :
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void main_window::name_size(double pt)
+void main_window::name_font_size(double pt)
 {
     ui_.event->name_font_size(pt);
     ui_.video->name_font_size(pt);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void main_window::clock_size(double pt)
+void main_window::clock_font_size(double pt)
 {
     ui_.clock->font_size(pt);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void main_window::event_size(double pt)
+void main_window::event_font_size(double pt)
 {
     ui_.event->font_size(pt);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void main_window::video_size(double pt)
+void main_window::video_font_size(double pt)
 {
     ui_.video->font_size(pt);
 }
