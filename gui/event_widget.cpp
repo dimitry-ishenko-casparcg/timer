@@ -33,6 +33,12 @@ event_widget::event_widget(QWidget* parent) : QWidget(parent)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void event_widget::font_size(double pt)
+{
+    ui_.widget->font_size(pt);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 void event_widget::start()
 {
     start_ = src::clock::instance()->time();

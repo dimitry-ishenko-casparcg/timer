@@ -26,6 +26,8 @@ class event_widget : public QWidget
 public:
     explicit event_widget(QWidget* parent = nullptr);
 
+    void font_size(double);
+
     void start();
     void stop();
     void reset();
