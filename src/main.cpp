@@ -25,8 +25,8 @@ void add_options(QCommandLineParser& parser)
     {
         "port",
         "Set UDP port to listen on.\n"
-        "Default: 7205\n",
-        "n", "7205"
+        "Default: 7250\n",
+        "n", "7250"
     },
     {
         "channel",
