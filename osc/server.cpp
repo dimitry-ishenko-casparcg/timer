@@ -54,6 +54,10 @@ server::server(int port, QObject* parent) : QObject(parent)
 {
     socket_.bind(port);
     connect(&socket_, &QUdpSocket::readyRead, this, &server::receive_data);
+
+    timer_.setInterval(100ms);
+    timer_.start();
+    connect(&timer_, &QTimer::timeout, this, &server::update);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -109,44 +113,74 @@ void server::process(const message& m)
     }
     else if(std::regex_match(m.address(), match, re))
     {
-        auto c = std::stoi(match[1]);
-        auto l = std::stoi(match[2]);
-        auto n = match[3];
+        auto channel = std::stoi(match[1]);
+        auto layer = std::stoi(match[2]);
+        auto type = match[3];
 
-        if(n == "path")
+        if(type == "path")
         {
             // compare in increasing order of complexity
-            if(c == channel_ && m.values().are<osc::string>() && layers_.count(l))
+            if(channel == channel_ && m.values().are<osc::string>() && layers_.count(layer))
             {
                 auto name = to_name(m.value(0));
-                auto& video = video_[l];
+                auto& video = video_[layer];
 
                 if(name != video.name)
                 {
                     video.name = name;
-                    video.time = src::time_point();
-                    video.total= src::seconds();
-                    video.when = src::system_clock::now();
+                    video.total = 0s;
                 }
+                video.when = src::system_clock::now();
             }
         }
-        else if(n == "time")
+        else if(type == "time")
         {
             // compare in increasing order of complexity
-            if(c == channel_ && m.values().are<float, float>())
+            if(channel == channel_ && m.values().are<float, float>())
             {
-                if(auto vi = video_.find(l); vi != video_.end())
+                if(auto vi = video_.find(layer); vi != video_.end())
                 {
-                    auto time = to_time_point(m.value(0));
-                    auto total = to_seconds(m.value(1));
+                    vi->second.time = to_time_point(m.value(0));
+                    vi->second.total = to_seconds(m.value(1));
 
-                    vi->second.time = time;
-                    vi->second.total = total;
                     vi->second.when = src::system_clock::now();
                 }
             }
         }
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void server::update()
+{
+    auto now = src::system_clock::now();
+
+    int layer = -1;
+    video_data video; video.total = 0s;
+
+    // get top active video
+    for(auto vi = video_.rbegin(); vi != video_.rend(); ++vi)
+    {
+        auto const& [ l, v ] = *vi;
+        if(now - v.when < 3s)
+        {
+            layer = l;
+            video = v;
+            break;
+        }
+    }
+
+    if(layer != layer_ || video.name != name_)
+    {
+        emit video_stop();
+
+        layer_ = layer;
+        name_ = video.name;
+
+        if(name_.size()) emit video_start(name_);
+    }
+
+    if(video.total > 0s) emit video_time(video.time, video.total);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

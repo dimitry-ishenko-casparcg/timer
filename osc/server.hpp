@@ -14,6 +14,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QTimer>
 #include <QUdpSocket>
 
 #include <osc++.hpp>
@@ -53,8 +54,9 @@ signals:
     void event_stop();
     void event_reset();
 
-    void video_name(const QString&);
+    void video_start(const QString&);
     void video_time(src::time_point, src::seconds);
+    void video_stop();
 
 private:
     QUdpSocket socket_;
@@ -74,6 +76,12 @@ private:
         src::time_point when;
     };
     std::map<int /*layer*/, video_data> video_; // active videos
+
+    int layer_ = -1; // active layer
+    QString name_; // active name
+
+    QTimer timer_;
+    void update();
 };
 
 ////////////////////////////////////////////////////////////////////////////////
