@@ -33,10 +33,7 @@ void add_options(QCommandLineParser& parser)
     },
     {
         "channel",
-        "Set one or more channels to be monitored. "
-        "Channels can be specified as several comma-separated values and/or ranges. "
-        "Negative numbers are removed from the set.\n"
-        "This option can be repeated multiple times.\n"
+        "Set channel to be monitored. "
         "Default: 1\n",
         "...", "1"
     },
@@ -148,20 +145,15 @@ int main(int argc, char* argv[])
 
         gui::main_window win(port, mode);
         win.show();
-        {
-            // collect all --channel values
-            auto [ranges, add, remove] = collect(parser, "channel");
-            for(auto const& nn : ranges) win.add_channels(nn);
-            for(auto n : add) win.add_channel(n);
-            for(auto n : remove) win.remove_channel(n);
-        }
-        {
-            // collect all --layer values
-            auto [ranges, add, remove] = collect(parser, "layer");
-            for(auto const& nn : ranges) win.add_layers(nn);
-            for(auto n : add) win.add_layer(n);
-            for(auto n : remove) win.remove_layer(n);
-        }
+
+        win.add_channel(to_int(parser, "channel"));
+
+        // collect all --layer values
+        auto [ranges, add, remove] = collect(parser, "layer");
+        for(auto const& nn : ranges) win.add_layers(nn);
+        for(auto n : add) win.add_layer(n);
+        for(auto n : remove) win.remove_layer(n);
+
         win. name_size(to_double(parser,  "name-size"));
         win.clock_size(to_double(parser, "clock-size"));
         win.event_size(to_double(parser, "event-size"));
