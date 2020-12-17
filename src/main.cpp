@@ -24,7 +24,8 @@ void add_options(QCommandLineParser& parser)
     },
     {
         "port",
-        "Set UDP port to listen on.\n",
+        "Set UDP port to listen on.\n"
+        "Default: 7205\n",
         "n", "7205"
     },
     {
@@ -32,7 +33,8 @@ void add_options(QCommandLineParser& parser)
         "Set one or more channels to be monitored. "
         "Channels can be specified as several comma-separated values and/or ranges. "
         "Negative numbers are removed from the set.\n"
-        "This option can be repeated multiple times.\n",
+        "This option can be repeated multiple times.\n"
+        "Default: 1\n",
         "...", "1"
     },
     {
@@ -40,27 +42,32 @@ void add_options(QCommandLineParser& parser)
         "Set one or more layers to be monitored. "
         "Layers can be specified as several comma-separated values and/or ranges. "
         "Negative numbers are removed from the set.\n"
-        "This option can be repeated multiple times.\n",
+        "This option can be repeated multiple times.\n"
+        "Default: 10\n",
         "...", "10"
     },
     {
         "name-size",
-        "Set font size for the event and video names.\n",
+        "Set font size for the event and video names.\n"
+        "Default: 20\n",
         "pt", "20"
     },
     {
         "clock-size",
-        "Set font size for the clock widget.\n",
+        "Set font size for the clock widget.\n"
+        "Default: 160\n",
         "pt", "160"
     },
     {
         "event-size",
-        "Set font size for the event widget.\n",
+        "Set font size for the event widget.\n"
+        "Default: 120\n",
         "pt", "120"
     },
     {
         "video-size",
-        "Set font size for the video widget.\n",
+        "Set font size for the video widget.\n"
+        "Default: 160\n",
         "pt", "160"
     }});
     parser.addHelpOption();
