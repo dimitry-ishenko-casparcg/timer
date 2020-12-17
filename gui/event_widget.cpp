@@ -39,6 +39,12 @@ void event_widget::font_size(double pt)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+void event_widget::name_font_size(double pt)
+{
+    ui_.name->setStyleSheet(QString("font-size: %1pt;").arg(pt));
+}
+
+////////////////////////////////////////////////////////////////////////////////
 void event_widget::start()
 {
     start_ = src::clock::instance()->time();

@@ -27,6 +27,7 @@ public:
     explicit event_widget(QWidget* parent = nullptr);
 
     void font_size(double);
+    void name_font_size(double);
 
     void start();
     void stop();
