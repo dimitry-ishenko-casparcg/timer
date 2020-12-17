@@ -66,9 +66,14 @@ private:
     int channel_ = -1; // monitored channel
     std::set<int> layers_; // monitored layers
 
-    int layer_ = -1; // active layer
-
-    std::map<int, QString> videos_;
+    struct video_data
+    {
+        QString name;
+        src::time_point time;
+        src::seconds total;
+        src::time_point when;
+    };
+    std::map<int /*layer*/, video_data> video_; // active videos
 };
 
 ////////////////////////////////////////////////////////////////////////////////

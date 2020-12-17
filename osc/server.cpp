@@ -115,41 +115,34 @@ void server::process(const message& m)
 
         if(n == "path")
         {
-            if(m.values().are<osc::string>() && c == channel_ && layers_.count(l))
+            // compare in increasing order of complexity
+            if(c == channel_ && m.values().are<osc::string>() && layers_.count(l))
             {
-                if(auto name = to_name(m.values()[0]); name != videos_[l])
-                {
-                    // video name has changed, assume new video started playing
-                    // and make its layer active
-                    layer_ = l;
+                auto name = to_name(m.value(0));
+                auto& video = video_[l];
 
-                    videos_[l] = name;
-                    emit video_name(name);
+                if(name != video.name)
+                {
+                    video.name = name;
+                    video.time = src::time_point();
+                    video.total= src::seconds();
+                    video.when = src::system_clock::now();
                 }
             }
         }
         else if(n == "time")
         {
-            if(m.values().are<float, float>())
+            // compare in increasing order of complexity
+            if(c == channel_ && m.values().are<float, float>())
             {
-                auto time = to_time_point(m.values()[0]);
-                auto total = to_seconds(m.values()[1]);
-
-                if(c == channel_ && l == layer_)
+                if(auto vi = video_.find(l); vi != video_.end())
                 {
-                    // active channel & layer
-                    if(total > 0s) emit video_time(time, total);
-                }
-                else if(auto name = videos_.find(l); name != videos_.end())
-                {
-                    if(time == src::time_point())
-                    {
-                        // time reset to 0, assume same video started playing newly
-                        // and make its layer active
-                        layer_ = l;
+                    auto time = to_time_point(m.value(0));
+                    auto total = to_seconds(m.value(1));
 
-                        emit video_name(name->second);
-                    }
+                    vi->second.time = time;
+                    vi->second.total = total;
+                    vi->second.when = src::system_clock::now();
                 }
             }
         }
