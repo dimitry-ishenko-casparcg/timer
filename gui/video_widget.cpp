@@ -26,10 +26,7 @@ video_widget::video_widget(QWidget* parent) : QWidget(parent)
     std::tm tm { 0 /*sec*/, 0 /*min*/, 0 /*hr*/, 1 /*day*/, 1 /*mon*/, 0 /*year*/ };
     epoch_ = src::system_clock::from_time_t(std::mktime(&tm));
 
-    reset();
-    timer_.setInterval(3s);
-    timer_.setSingleShot(true);
-    connect(&timer_, &QTimer::timeout, this, &video_widget::reset);
+    stop();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,10 +42,9 @@ void video_widget::name_font_size(double pt)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void video_widget::name(const QString& name)
+void video_widget::start(const QString& name)
 {
-    timer_.start();
-    color(Qt::white);
+    name_font_color(Qt::white);
 
     ui_.name->setText(name);
     ui_.widget->time(epoch_);
@@ -57,37 +53,29 @@ void video_widget::name(const QString& name)
 ////////////////////////////////////////////////////////////////////////////////
 void video_widget::time(src::time_point time, src::seconds total)
 {
-    if(time != time_)
+    ui_.widget->font_color(Qt::green);
+
+    auto done = time.time_since_epoch();
+    if(done > total) done = total;
+
+    switch(mode_)
     {
-        time_ = time;
-
-        timer_.start();
-        ui_.widget->font_color(Qt::green);
-
-        auto done = time.time_since_epoch();
-        if(done > total) done = total;
-
-        switch(mode_)
-        {
-        case count_up: ui_.widget->time(epoch_ + done); break;
-        case count_down: ui_.widget->time(epoch_ + (total - done)); break;
-        }
+    case count_up: ui_.widget->time(epoch_ + done); break;
+    case count_down: ui_.widget->time(epoch_ + (total - done)); break;
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void video_widget::color(const QColor& c)
+void video_widget::stop()
 {
-    ui_.name->setStyleSheet(QString("color: %1;").arg(c.name()));
+    name_font_color(dark_gray);
+    ui_.widget->font_color(dark_gray);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void video_widget::reset()
+void video_widget::name_font_color(const QColor& c)
 {
-    timer_.stop();
-
-    color(dark_gray);
-    ui_.widget->font_color(dark_gray);
+    ui_.name->setStyleSheet(QString("color: %1;").arg(c.name()));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

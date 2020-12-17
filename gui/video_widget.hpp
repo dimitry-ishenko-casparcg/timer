@@ -12,7 +12,6 @@
 #include "src/time.hpp"
 #include "ui_video_widget.h"
 
-#include <QTimer>
 #include <QWidget>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,18 +40,17 @@ public:
     auto mode() const { return mode_; }
     void mode(count_mode mode) { mode_ = mode; }
 
-    void name(const QString&);
+    void start(const QString&);
     void time(src::time_point, src::seconds);
-    void reset();
+    void stop();
 
 private:
     Ui::video_widget ui_;
-    QTimer timer_;
 
-    src::time_point epoch_, time_;
+    src::time_point epoch_;
     count_mode mode_ = count_down;
 
-    void color(const QColor&);
+    void name_font_color(const QColor&);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
