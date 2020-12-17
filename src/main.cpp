@@ -6,6 +6,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include "gui/main_window.hpp"
+#include "range.hpp"
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -13,6 +14,8 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <tuple>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 void add_options(QCommandLineParser& parser)
@@ -74,29 +77,57 @@ void add_options(QCommandLineParser& parser)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-auto to_int(const QCommandLineParser& parser, const QString& option)
+auto to_int(const QCommandLineParser& parser, const QString& opt)
 {
-    auto value = parser.value(option);
+    auto v = parser.value(opt);
     bool ok;
-    auto n = value.toInt(&ok);
+    auto n = v.toInt(&ok);
 
     if(!ok) throw std::invalid_argument(
-        ("Invalid '" + option + "' value: " + value).toStdString()
+        ("Invalid '" + opt + "' value: " + v).toStdString()
     );
     return n;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-auto to_double(const QCommandLineParser& parser, const QString& option)
+auto to_double(const QCommandLineParser& parser, const QString& opt)
 {
-    auto value = parser.value(option);
+    auto v = parser.value(opt);
     bool ok;
-    auto n = value.toDouble(&ok);
+    auto n = v.toDouble(&ok);
 
     if(!ok) throw std::invalid_argument(
-        ("Invalid '" + option + "' value: " + value).toStdString()
+        ("Invalid '" + opt + "' value: " + v).toStdString()
     );
     return n;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+auto collect(const QCommandLineParser& parser, const QString& opt)
+{
+    std::vector<range> ranges;
+    std::vector<int> add, remove;
+
+    bool ok;
+    for(auto const& vv : parser.values(opt))
+        for(auto const& v : vv.split(',', QString::SkipEmptyParts))
+        {
+            auto p = v.indexOf('-');
+                 if(p == -1) add.push_back(v.toInt(&ok));
+            else if(p ==  0) remove.push_back(-v.toInt(&ok));
+            else
+            {
+                auto from = v.mid(0, p).toInt(&ok);
+                auto to = v.mid(p+1).toInt(&ok);
+                ranges.emplace_back(from, to);
+            }
+
+            if(!ok) throw std::invalid_argument(
+                ("Invalid '" + opt + "' value: " + v).toStdString()
+            );
+        }
+
+    return std::tuple(ranges, add, remove);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,9 +148,20 @@ int main(int argc, char* argv[])
 
         gui::main_window win(port, mode);
         win.show();
-
-        // channels & layers
-
+        {
+            // collect all --channel values
+            auto [ranges, add, remove] = collect(parser, "channel");
+            for(auto const& nn : ranges) win.add_channels(nn);
+            for(auto n : add) win.add_channel(n);
+            for(auto n : remove) win.remove_channel(n);
+        }
+        {
+            // collect all --layer values
+            auto [ranges, add, remove] = collect(parser, "layer");
+            for(auto const& nn : ranges) win.add_layers(nn);
+            for(auto n : add) win.add_layer(n);
+            for(auto n : remove) win.remove_layer(n);
+        }
         win. name_size(to_double(parser,  "name-size"));
         win.clock_size(to_double(parser, "clock-size"));
         win.event_size(to_double(parser, "event-size"));
