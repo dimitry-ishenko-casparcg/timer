@@ -24,7 +24,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="name">
+    <widget class="gui::custom_label" name="name">
      <property name="text">
       <string>VIDEO TIME</string>
      </property>
@@ -44,6 +44,11 @@
    <extends>QWidget</extends>
    <header>gui/time_widget.hpp</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>gui::custom_label</class>
+   <extends>QLabel</extends>
+   <header>gui/custom.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -38,15 +38,15 @@ void video_widget::font_size(double pt)
 ////////////////////////////////////////////////////////////////////////////////
 void video_widget::name_font_size(double pt)
 {
-    ui_.name->setStyleSheet(QString("font-size: %1pt;").arg(pt));
+    ui_.name->font_size(pt);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void video_widget::start(const QString& name)
 {
-    name_font_color(Qt::white);
-
+    ui_.name->color(Qt::white);
     ui_.name->setText(name);
+
     ui_.widget->time(epoch_);
 }
 
@@ -68,14 +68,8 @@ void video_widget::time(src::time_point time, src::seconds total)
 ////////////////////////////////////////////////////////////////////////////////
 void video_widget::stop()
 {
-    name_font_color(dark_gray);
+    ui_.name->color(dark_gray);
     ui_.widget->color(dark_gray);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-void video_widget::name_font_color(const QColor& c)
-{
-    ui_.name->setStyleSheet(QString("color: %1;").arg(c.name()));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

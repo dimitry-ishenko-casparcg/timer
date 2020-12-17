@@ -49,8 +49,6 @@ private:
 
     src::time_point epoch_;
     count_mode mode_ = count_down;
-
-    void name_font_color(const QColor&);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
