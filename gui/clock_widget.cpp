@@ -17,7 +17,7 @@ namespace gui
 ////////////////////////////////////////////////////////////////////////////////
 clock_widget::clock_widget(QWidget* parent) : time_widget(parent)
 {
-    font_color(Qt::red);
+    color(Qt::red);
 
     auto clock = src::clock::instance();
     connect(&*clock, &src::clock::time_changed, this, &clock_widget::time);

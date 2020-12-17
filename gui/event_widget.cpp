@@ -48,14 +48,14 @@ void event_widget::name_font_size(double pt)
 void event_widget::start()
 {
     start_ = src::clock::instance()->time();
-    ui_.widget->font_color(Qt::white);
+    ui_.widget->color(Qt::white);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::stop()
 {
     start_ = none;
-    ui_.widget->font_color(Qt::gray);
+    ui_.widget->color(Qt::gray);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

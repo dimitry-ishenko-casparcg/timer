@@ -9,6 +9,7 @@
 #define GUI_TIME_WIDGET_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
+#include "custom.hpp"
 #include "label.hpp" // where
 #include "src/time.hpp"
 #include "ui_time_widget.h"
@@ -26,15 +27,12 @@ namespace gui
 /// It forwards clicked and long_pressed signals from its children hours,
 /// minutes and seconds.
 ///
-class time_widget : public QWidget
+class time_widget : public custom_widget
 {
     Q_OBJECT
 
 public:
     explicit time_widget(QWidget* parent = nullptr);
-
-    void font_size(double pt) { fsize_ = pt; update_sheet(); }
-    void font_color(QColor c) { fcolor_ = std::move(c); update_sheet(); }
 
     void time(src::time_point);
 
@@ -47,11 +45,6 @@ signals:
 
 private:
     Ui::time_widget ui_;
-
-    double fsize_ = -1;
-    QColor fcolor_;
-
-    void update_sheet();
 };
 
 ////////////////////////////////////////////////////////////////////////////////

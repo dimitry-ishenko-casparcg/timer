@@ -14,7 +14,7 @@ namespace gui
 {
 
 ////////////////////////////////////////////////////////////////////////////////
-time_widget::time_widget(QWidget* parent) : QWidget(parent)
+time_widget::time_widget(QWidget* parent) : custom_widget(parent)
 {
     ui_.setupUi(this);
 
@@ -39,17 +39,6 @@ void time_widget::time(src::time_point tp)
     ui_.hours  ->setText(to_text(tm->tm_hour));
     ui_.minutes->setText(to_text(tm->tm_min ));
     ui_.seconds->setText(to_text(tm->tm_sec ));
-}
-
-////////////////////////////////////////////////////////////////////////////////
-void time_widget::update_sheet()
-{
-    QString sheet;
-
-    if(fsize_ > 0) sheet += QString("font-size: %1pt;").arg(fsize_);
-    if(fcolor_.isValid()) sheet += QString("color: %1;").arg(fcolor_.name());
-
-    setStyleSheet(sheet);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

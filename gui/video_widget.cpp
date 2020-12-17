@@ -53,7 +53,7 @@ void video_widget::start(const QString& name)
 ////////////////////////////////////////////////////////////////////////////////
 void video_widget::time(src::time_point time, src::seconds total)
 {
-    ui_.widget->font_color(Qt::green);
+    ui_.widget->color(Qt::green);
 
     auto done = time.time_since_epoch();
     if(done > total) done = total;
@@ -69,7 +69,7 @@ void video_widget::time(src::time_point time, src::seconds total)
 void video_widget::stop()
 {
     name_font_color(dark_gray);
-    ui_.widget->font_color(dark_gray);
+    ui_.widget->color(dark_gray);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
