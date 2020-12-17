@@ -48,8 +48,10 @@ void video_widget::name_font_size(double pt)
 void video_widget::name(const QString& name)
 {
     timer_.start();
-    ui_.name->setText(name);
     color(Qt::white);
+
+    ui_.name->setText(name);
+    ui_.widget->time(epoch_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,8 +59,10 @@ void video_widget::time(src::time_point time, src::seconds total)
 {
     if(time != time_)
     {
-        timer_.start();
         time_ = time;
+
+        timer_.start();
+        ui_.widget->font_color(Qt::green);
 
         auto done = time.time_since_epoch();
         if(done > total) done = total;
@@ -68,7 +72,6 @@ void video_widget::time(src::time_point time, src::seconds total)
         case count_up: ui_.widget->time(epoch_ + done); break;
         case count_down: ui_.widget->time(epoch_ + (total - done)); break;
         }
-        ui_.widget->font_color(Qt::green);
     }
 }
 
