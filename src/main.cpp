@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
         gui::main_window win(port, mode);
         win.show();
 
-        win.add_channel(to_int(parser, "channel"));
+        win.channel(to_int(parser, "channel"));
 
         // collect all --layer values
         auto [ranges, add, remove] = collect(parser, "layer");
