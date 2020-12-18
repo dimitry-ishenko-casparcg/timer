@@ -7,7 +7,7 @@
 Binary (Debian/Ubuntu/etc):
 
 ```console
-$ ver=0.0
+$ ver=0.1
 $ url=https://github.com/dimitry-ishenko-casparcg/timer/releases/download/v${ver}
 $ wget ${url}/timer_${ver}_amd64.deb
 $ sudo apt install ./timer_${ver}_amd64.deb
