@@ -6,8 +6,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include "server.hpp"
-
-#include <QNetworkDatagram>
 #include <osc++.hpp>
 
 #include <regex>
@@ -65,8 +63,8 @@ void server::receive_data()
 {
     while(socket_.hasPendingDatagrams())
     {
-        auto data = socket_.receiveDatagram().data();
-        osc::packet p(data.data(), data.size());
+        osc::packet p(socket_.pendingDatagramSize());
+        socket_.readDatagram(p.data(), p.size());
 
         try
         {
