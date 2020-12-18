@@ -22,13 +22,25 @@ TODO
 Compile from source (requires [Qt5](https://www.qt.io/) and [CMake](https://cmake.org/) >= 3.1):
 
 ```console
-TODO
+$ ver=0.1
+$ wget https://github.com/dimitry-ishenko-casparcg/timer/archive/v${ver}.tar.gz
+$ tar xzf v${ver}.tar.gz
+$ mkdir timer-${ver}/build
+$ cd timer-${ver}/build
+$ cmake ..
+$ make
+$ sudo make install
 ```
 
 Clone and compile from repository (requires [git](https://git-scm.com/), [Qt5](https://www.qt.io/) and [CMake](https://cmake.org/) >= 3.1):
 
 ```console
-TODO
+$ git clone https://github.com/dimitry-ishenko-casparcg/timer.git
+$ mkdir timer/build
+$ cd timer/build
+$ cmake ..
+$ make
+$ sudo make install
 ```
 
 ## Usage
