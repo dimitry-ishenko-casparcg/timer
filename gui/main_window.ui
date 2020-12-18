@@ -48,6 +48,13 @@
    <item>
     <widget class="gui::video_widget" name="video" native="true"/>
    </item>
+   <item>
+    <spacer name="spacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <customwidgets>
