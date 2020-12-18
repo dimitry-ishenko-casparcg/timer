@@ -7,7 +7,7 @@
 Binary (Debian/Ubuntu/etc):
 
 ```console
-$ ver=0.1
+$ ver=0.2
 $ url=https://github.com/dimitry-ishenko-casparcg/timer/releases/download/v${ver}
 $ wget ${url}/timer_${ver}_amd64.deb
 $ sudo apt install ./timer_${ver}_amd64.deb
@@ -16,7 +16,7 @@ $ sudo apt install ./timer_${ver}_amd64.deb
 Binary (RaspberryPi):
 
 ```console
-$ ver=0.1
+$ ver=0.2
 $ url=https://github.com/dimitry-ishenko-casparcg/timer/releases/download/v${ver}
 $ wget ${url}/timer_${ver}_armhf.deb
 $ sudo apt install ./timer_${ver}_armhf.deb
@@ -25,7 +25,7 @@ $ sudo apt install ./timer_${ver}_armhf.deb
 Compile from source (requires [Qt5](https://www.qt.io/) and [CMake](https://cmake.org/) >= 3.1):
 
 ```console
-$ ver=0.1
+$ ver=0.2
 $ wget https://github.com/dimitry-ishenko-casparcg/timer/archive/v${ver}.tar.gz
 $ tar xzf v${ver}.tar.gz
 $ mkdir timer-${ver}/build
