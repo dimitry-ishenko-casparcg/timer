@@ -98,7 +98,7 @@ void server::process(const element& e)
 ////////////////////////////////////////////////////////////////////////////////
 void server::process(const message& m)
 {
-    static std::regex re("/channel/([0-9]+)/stage/layer/([0-9]+)/foreground/file/(path|time)");
+    static std::regex re("/channel/([0-9]+)/stage/layer/([0-9]+)(/foreground)?/file/(path|time)");
     std::smatch match;
 
     if(m.address() == "/event/state")
@@ -115,7 +115,7 @@ void server::process(const message& m)
     {
         auto channel = std::stoi(match[1]);
         auto layer = std::stoi(match[2]);
-        auto type = match[3];
+        auto type = match[4];
 
         if(type == "path")
         {
