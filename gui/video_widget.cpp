@@ -23,7 +23,8 @@ video_widget::video_widget(QWidget* parent) : QWidget(parent)
 {
     ui_.setupUi(this);
 
-    std::tm tm { 0 /*sec*/, 0 /*min*/, 0 /*hr*/, 1 /*day*/, 1 /*mon*/, 0 /*year*/ };
+    std::tm tm { };
+    tm.tm_mday = 1; tm.tm_year = 100; tm.tm_isdst = -1;
     epoch_ = src::system_clock::from_time_t(std::mktime(&tm));
 
     stop();
