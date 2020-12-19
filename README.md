@@ -1,4 +1,9 @@
-# Timer application for [CasparCG](https://github.com/CasparCG).
+# Timer application for CasparCG.
+
+The Timer application is intended to be used in conjunction with
+[CasparCG](https://github.com/CasparCG) Server and/or Client. It uses
+[OSC](http://opensoundcontrol.org/spec-1_0) protocol to display event run time
+as well as current video countdown.
 
 ![screenshot](screenshot.png)
 
@@ -8,7 +13,8 @@
 
 * [osc++](https://github.com/dimitry-ishenko-casparcg/osc) >= 0.6
 
-Follow installation instructions on their home page. `libosc++-dev` package is only needed when compiling `timer` from source.
+Follow installation instructions on their home page. `libosc++-dev` package is
+only needed when compiling `timer` from source.
 
 ### Binary
 
@@ -32,7 +38,8 @@ $ sudo apt install ./timer_${ver}_armhf.deb
 
 ### From source
 
-Stable version (requires [Qt](https://www.qt.io/) >= 5.7 and [CMake](https://cmake.org/) >= 3.1):
+Stable version (requires [Qt](https://www.qt.io/) >= 5.7 and
+[CMake](https://cmake.org/) >= 3.1):
 
 ```console
 $ ver=0.2
@@ -45,7 +52,8 @@ $ make
 $ sudo make install
 ```
 
-Latest master (requires [git](https://git-scm.com/), [Qt](https://www.qt.io/) >= 5.7 and [CMake](https://cmake.org/) >= 3.1):
+Latest master (requires [git](https://git-scm.com/), [Qt](https://www.qt.io/) >=
+5.7 and [CMake](https://cmake.org/) >= 3.1):
 
 ```console
 $ git clone https://github.com/dimitry-ishenko-casparcg/timer.git
