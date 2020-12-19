@@ -31,8 +31,8 @@ main_window::main_window(int port, window_mode mode, QWidget* parent) :
     connect(&server_, &osc::server::event_reset, ui_.event, &event_widget::reset);
 
     connect(&server_, &osc::server::video_start, ui_.video, &video_widget::start);
-    connect(&server_, &osc::server::video_time, ui_.video, &video_widget::time);
-    connect(&server_, &osc::server::video_stop, ui_.video, &video_widget::stop);
+    connect(&server_, &osc::server::video_time , ui_.video, &video_widget::time );
+    connect(&server_, &osc::server::video_stop , ui_.video, &video_widget::stop );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
