@@ -133,12 +133,15 @@ int main(int argc, char* argv[])
     int exit_code = 0;
     try
     {
-        QApplication app(argc, argv);
-        QFontDatabase::addApplicationFont(":/seven.otf");
-
         QCommandLineParser parser;
         add_options(parser);
-        parser.process(app);
+        {
+            QCoreApplication app(argc, argv);
+            parser.process(app);
+        }
+
+        QApplication app(argc, argv);
+        QFontDatabase::addApplicationFont(":/seven.otf");
 
         auto port = to_int(parser, "port");
         auto mode = parser.isSet("full-screen") ? gui::full_screen : gui::windowed;
