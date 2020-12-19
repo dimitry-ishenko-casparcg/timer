@@ -18,7 +18,7 @@ namespace gui
 label::label(QWidget* parent) : QLabel(parent)
 {
     timer_.setSingleShot(true);
-    timer_.setInterval(1500ms);
+    timer_.setInterval(1500 /*ms*/);
 
     connect(&timer_, &QTimer::timeout, this, &label::long_pressed);
 }

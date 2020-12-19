@@ -16,7 +16,7 @@ clock::clock(QObject* parent) : QObject(parent)
 {
     connect(&timer_, &QTimer::timeout, this, &clock::update_time);
 
-    timer_.setInterval(100ms);
+    timer_.setInterval(100 /*ms*/);
     timer_.start();
 }
 

@@ -53,7 +53,7 @@ server::server(int port, QObject* parent) : QObject(parent)
     socket_.bind(port);
     connect(&socket_, &QUdpSocket::readyRead, this, &server::receive_data);
 
-    timer_.setInterval(100ms);
+    timer_.setInterval(100 /*ms*/);
     timer_.start();
     connect(&timer_, &QTimer::timeout, this, &server::update);
 }
