@@ -20,7 +20,10 @@ namespace gui
 event_widget::event_widget(QWidget* parent) : QWidget(parent)
 {
     ui_.setupUi(this);
-    reset();
+
+    std::tm tm { };
+    tm.tm_mday = 1; tm.tm_year = 100; tm.tm_isdst = -1;
+    epoch_ = src::system_clock::from_time_t(std::mktime(&tm));
 
     auto clock = src::clock::instance();
     connect(&*clock, &src::clock::time_changed, this, &event_widget::update);
@@ -30,6 +33,8 @@ event_widget::event_widget(QWidget* parent) : QWidget(parent)
     connect(ui_.widget, &time_widget::seconds_clicked, [=](where w) { click(w, 1s); } );
 
     connect(ui_.widget, &time_widget::long_pressed, this, &event_widget::reset);
+
+    reset();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,9 +66,6 @@ void event_widget::stop()
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::reset()
 {
-    std::tm tm { 0 /*sec*/, 0 /*min*/, 0 /*hr*/, 1 /*day*/, 1 /*mon*/, 0 /*year*/ };
-    epoch_ = src::system_clock::from_time_t(std::mktime(&tm));
-
     stop();
     ui_.widget->time(epoch_);
 }
