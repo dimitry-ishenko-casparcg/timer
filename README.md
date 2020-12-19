@@ -21,7 +21,7 @@ only needed when compiling `timer` from source.
 Debian/Ubuntu/etc:
 
 ```console
-$ ver=0.3
+$ ver=0.4
 $ url=https://github.com/dimitry-ishenko-casparcg/timer/releases/download/v${ver}
 $ wget ${url}/timer_${ver}_amd64.deb
 $ sudo apt install ./timer_${ver}_amd64.deb
@@ -30,7 +30,7 @@ $ sudo apt install ./timer_${ver}_amd64.deb
 RaspberryPi:
 
 ```console
-$ ver=0.3
+$ ver=0.4
 $ url=https://github.com/dimitry-ishenko-casparcg/timer/releases/download/v${ver}
 $ wget ${url}/timer_${ver}_armhf.deb
 $ sudo apt install ./timer_${ver}_armhf.deb
@@ -42,7 +42,7 @@ Stable version (requires [Qt](https://www.qt.io/) >= 5.7 and
 [CMake](https://cmake.org/) >= 3.1):
 
 ```console
-$ ver=0.3
+$ ver=0.4
 $ wget https://github.com/dimitry-ishenko-casparcg/timer/archive/v${ver}.tar.gz
 $ tar xzf v${ver}.tar.gz
 $ mkdir timer-${ver}/build
