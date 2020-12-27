@@ -73,7 +73,7 @@ void server::receive_data()
         }
         catch(std::invalid_argument&)
         {
-            // discard invalid packets
+            // discard invalid packet
         }
     }
 }
@@ -159,7 +159,7 @@ void server::update()
     // get top active video
     for(auto vi = video_.rbegin(); vi != video_.rend(); ++vi)
     {
-        auto const& [ l, v ] = *vi;
+        auto const& [l, v] = *vi;
         if(now - v.when < 3s)
         {
             layer = l;

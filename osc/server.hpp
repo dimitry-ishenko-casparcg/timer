@@ -32,8 +32,8 @@ namespace osc
 /// Receives OSC messages, filters out the ones we care about and does
 /// basic pre-processing.
 ///
-/// Specifically, the server keeps track of which is video is played on which
-/// channel and layer and only signals name and time for the latest video.
+/// Specifically, the server keeps track of which video is played on what
+/// channel and layer, and only signals name and time for the top active layer.
 ///
 class server : public QObject
 {
