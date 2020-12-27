@@ -102,8 +102,8 @@ auto to_double(const QCommandLineParser& parser, const QString& opt)
 ////////////////////////////////////////////////////////////////////////////////
 auto collect(const QCommandLineParser& parser, const QString& opt)
 {
-    std::vector<range> ranges;
-    std::vector<int> add, remove;
+    std::vector<range> ranges; // layer ranges to add
+    std::vector<int> add, remove; // individual ranges to add and remove
 
     bool ok;
     for(auto const& vv : parser.values(opt))
@@ -115,7 +115,7 @@ auto collect(const QCommandLineParser& parser, const QString& opt)
             else
             {
                 auto from = v.mid(0, p).toInt(&ok);
-                auto to = v.mid(p+1).toInt(&ok);
+                auto to = v.mid(p + 1).toInt(&ok);
                 ranges.emplace_back(from, to);
             }
 
@@ -136,6 +136,10 @@ int main(int argc, char* argv[])
         QCommandLineParser parser;
         add_options(parser);
         {
+            // create instance of QCoreApplication first,
+            // so that options can be processed and help (or errors) shown in a
+            // non-GUI terminal
+            //
             QCoreApplication app(argc, argv);
             parser.process(app);
         }
