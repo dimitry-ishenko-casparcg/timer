@@ -10,6 +10,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #include <QColor>
+#include <QFontMetrics>
 #include <QLabel>
 #include <QString>
 #include <QWidget>
@@ -49,8 +50,22 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-using custom_label = custom<QLabel>;
 using custom_widget = custom<QWidget>;
+
+////////////////////////////////////////////////////////////////////////////////
+/// Custom label with elided text.
+///
+class custom_label : public custom<QLabel>
+{
+public:
+    using custom<QLabel>::custom;
+
+    void text(const QString& s)
+    {
+        QFontMetrics metrics(font());
+        setText(metrics.elidedText(s, Qt::ElideRight, width()));
+    }
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 }
