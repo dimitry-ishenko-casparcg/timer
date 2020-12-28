@@ -46,7 +46,7 @@ void video_widget::name_font_size(double pt)
 void video_widget::start(const QString& name)
 {
     ui_.name->color(Qt::white);
-    ui_.name->setText(name);
+    ui_.name->text(name);
 
     ui_.widget->time(epoch_);
 }
