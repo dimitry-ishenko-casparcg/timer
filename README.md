@@ -97,7 +97,7 @@ Share and enjoy.
 
 ### Prerequisites
 
-* [osc++](https://github.com/dimitry-ishenko-casparcg/osc) >= 0.6
+* [libosc++](https://github.com/dimitry-ishenko-casparcg/liboscpp) >= 0.8
 
 Follow installation instructions on their home page. `libosc++-dev` package is
 only needed when compiling timer from source.
