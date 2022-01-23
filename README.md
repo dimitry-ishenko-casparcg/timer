@@ -11,7 +11,7 @@ Other than the video countdown, the app *can* also be used by itself with a
 touchscreen or mouse:
 
 * Tapping on the event running time (not the text, but the actual time) will
-start and stop the count.
+start, pause or resume the count.
 * The event time can be adjusted by tapping at the top or bottom of the hours,
 minutes and seconds.
 * Pressing and holding on the event time will reset it to zero.
@@ -83,13 +83,13 @@ First, go to the `Settings` menu, select the `OSC` tab and click on `+` (the
 plus sign) below the `OSC Output` section. Enter the IP address and port of the
 host running the timer app.
 
-To trigger event start, stop or reset from the rundown, do this:
+To trigger event start, stop, pause, resume or reset from the rundown, do this:
 
 * Add `OSC Output` item to the rundown.
 * Select OSC output (which you have added above) from the `Output` drop-down.
 * In the `Path` field enter `/event/state`.
-* In the `Message` field enter one of `start`, `stop` or `reset` and select
-`String` as the `Type`.
+* In the `Message` field enter one of `start`, `pause`, `resume`, `stop` or
+  `reset` and select `String` as the `Type`.
 
 Share and enjoy.
 
