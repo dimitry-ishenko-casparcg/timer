@@ -104,9 +104,11 @@ void server::process(const message& m)
         if(m.values().are<osc::string>())
         {
             auto state = m.value(0).to_string();
-                 if(state == "start") emit event_start();
-            else if(state == "stop" ) emit event_stop ();
-            else if(state == "reset") emit event_reset();
+                 if(state == "start" ) emit event_start ();
+            else if(state == "pause" ) emit event_pause ();
+            else if(state == "resume") emit event_resume();
+            else if(state == "stop"  ) emit event_stop  ();
+            else if(state == "reset" ) emit event_reset ();
         }
     }
     else if(std::regex_match(m.address(), match, re))

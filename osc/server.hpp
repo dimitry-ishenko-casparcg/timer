@@ -51,6 +51,8 @@ public:
 
 signals:
     void event_start();
+    void event_pause();
+    void event_resume();
     void event_stop();
     void event_reset();
 
