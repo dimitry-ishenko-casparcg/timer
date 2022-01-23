@@ -53,13 +53,30 @@ void event_widget::name_font_size(double pt)
 void event_widget::start()
 {
     start_ = src::clock::instance()->time();
+    pause_ = none;
     ui_.widget->color(Qt::white);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void event_widget::pause()
+{
+    if(started() && !paused()) pause_ = src::clock::instance()->time();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void event_widget::resume()
+{
+    if(paused())
+    {
+        start_ = src::clock::instance()->time() + (start_ - pause_);
+        pause_ = none;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::stop()
 {
-    start_ = none;
+    start_ = pause_ = none;
     ui_.widget->color(Qt::gray);
 }
 
@@ -78,7 +95,7 @@ void event_widget::click(where w, src::seconds s)
         switch(w)
         {
         case top: start_ -= s; break;
-        case middle: stop(); break;
+        case middle: if(paused()) resume(); else pause(); break;
         case bottom: start_ += s; break;
         }
     }
@@ -88,7 +105,11 @@ void event_widget::click(where w, src::seconds s)
 ////////////////////////////////////////////////////////////////////////////////
 void event_widget::update(src::time_point tp)
 {
-    if(started()) ui_.widget->time(epoch_ + (tp - start_));
+    if(started())
+    {
+        if(paused()) tp = pause_;
+        ui_.widget->time(epoch_ + (tp - start_));
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
