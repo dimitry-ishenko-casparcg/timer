@@ -107,7 +107,7 @@ auto collect(const QCommandLineParser& parser, const QString& opt)
 
     bool ok;
     for(auto const& vv : parser.values(opt))
-        for(auto const& v : vv.split(',', QString::SkipEmptyParts))
+        for(auto const& v : vv.split(',', Qt::SkipEmptyParts))
         {
             auto p = v.indexOf('-');
                  if(p == -1) add.push_back(v.toInt(&ok));
