@@ -93,6 +93,12 @@ To trigger event start, stop, pause, resume or reset from the rundown, do this:
 
 Share and enjoy.
 
+If you find this project useful, please consider a small donation:
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SF5AXLYBGE9FW&currency_code=USD">
+    <img src="https://raw.githubusercontent.com/dimitry-ishenko-ml/open-speech/master/donate.png" alt="Donate with PayPal" width="25%" />
+</a>
+
 ## Installation
 
 ### Prerequisites
